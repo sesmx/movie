@@ -24,8 +24,38 @@ namespace movieapi.Controllers
         {
             await Db.Connection.OpenAsync();
             var query = new MovieQuery(Db);
-            var result = await query.GetAllMoviesAsync();
-            return new OkObjectResult(result);
+            var movies = await query.GetAllMoviesAsync();
+            var allSoundEffects = await query.GetAllSoundEffectDetailsAsync();
+            var allMovieStills = await query.GetAllMovieStillsAsync();
+            movies.ForEach(m =>
+            {
+                m.soundEffects = allSoundEffects.Where(se => se.MovieId == m.Id).ToList();
+                m.movieStills = allMovieStills.Where(st => st.MovieId == m.Id).ToList();
+            });
+            await Db.Connection.CloseAsync();
+            return new OkObjectResult(movies);
+        }
+
+        [HttpGet("Languages")]
+        [ActionName("Languages")]
+        public async Task<IActionResult> Languages()
+        {
+            await Db.Connection.OpenAsync();
+            var query = new MovieQuery(Db);
+            var langs = await query.GetAllMovieLanguageAsync();
+            await Db.Connection.CloseAsync();
+            return new OkObjectResult(langs);
+        }
+
+        [HttpGet("Locations")]
+        [ActionName("Locations")]
+        public async Task<IActionResult> Locations()
+        {
+            await Db.Connection.OpenAsync();
+            var query = new MovieQuery(Db);
+            var langs = await query.GetAllMovieLocationsAsync();
+            await Db.Connection.CloseAsync();
+            return new OkObjectResult(langs);
         }
     }
 }
