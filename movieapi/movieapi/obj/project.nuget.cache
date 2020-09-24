@@ -1,8 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "C9jZMFq0fIB61bvmGIlQrFVD4PG7lQI7z0cFkUOybVWwhLh6vGV2ddkFFJb40fFkPMc4uWe6HbMX5/8Js2KQ+w==",
+  "dgSpecHash": "Wl8AdlIP5LnSanitSzXPgwrT3fZn4UX61L8wNPL3/mkoL/lU19CwNrFFfq03zJGOfcjBG8uhBwqcODer+nWWJg==",
   "success": true,
   "projectFilePath": "C:\\Projects\\movie\\movieapi\\movieapi\\movieapi.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\Anik\\.nuget\\packages\\mysqlconnector\\1.0.1\\mysqlconnector.1.0.1.nupkg.sha512"
+  ],
   "logs": []
 }
