@@ -1,0 +1,50 @@
+<template>
+  <movie-detail :movieobj="selectedMovie"></movie-detail>
+</template>
+
+<script>
+import MovieDetail from "@/components/moviedetails/movie-detail";
+export default {
+  name: "MovieDetails",
+  data() {
+    return {
+      selectedMovie: {}
+    };
+  },
+  components: {
+    MovieDetail
+  },
+  created() {
+    this.initMovie();
+  },
+  watch: {
+    // eslint-disable-next-line no-unused-vars
+    $route(to, from) {
+      this.initMovie();
+    }
+  },
+  methods: {
+    initMovie() {
+      this.selectedMovie = this.$store.state.movies.find(
+        x => x.id === this.$route.params.id
+      );
+      this.selectedMovie = this.search(
+        this.$route.params.id,
+        this.$store.state.movies
+      );
+      if (this.selectedMovie === undefined || this.selectedMovie === null) {
+        this.$router.push({ path: "/" });
+      }
+    },
+    search(nameKey, array) {
+      for (let i = 0; i < array.length; i++) {
+        if (array[i].id * 1 === nameKey * 1) {
+          return array[i];
+        }
+      }
+    }
+  }
+};
+</script>
+
+<style scoped></style>

@@ -1,31 +1,21 @@
-// import axios from 'axios';
+$(document).ready(function() {
+  //Horizontal Tab
+  $("#parentHorizontalTab").easyResponsiveTabs({
+    type: "default",
+    width: "auto",
+    fit: true,
+    tabidentify: "hor_1",
+    // eslint-disable-next-line no-unused-vars
+    activate: function(event) {
+      var $tab = $(this);
+      var $info = $("#nested-tabInfo");
+      var $name = $("span", $info);
+      $name.text($tab.text());
+      $info.show();
+    }
+  });
+});
 
-// window.addEventListener('load', () => {
-
-//   const api = 'http://www.colr.org/json/color/random';
-//   const body = document.querySelector('body');
-
-//   function randomColor() {
-//     axios.get(api).then(res => {
-//       let color = res.data.colors[0].hex;
-
-//       if (!color) {
-//         console.error('Random color could not be fetched.');
-//       }
-
-//       color = '#' + color;
-
-//       body.style.backgroundColor = color;
-//     }).catch(() => console.error('Random color could not be fetched.'));
-//   }
-
-//   randomColor();
-
-//   setInterval(randomColor, 8000);
-
-// });
-
-console.log("Live");
 $("#myModal").on("shown.bs.modal", function() {
   $("#myInput").trigger("focus");
 });

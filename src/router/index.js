@@ -1,5 +1,6 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
+/*import store from "@/store/index";*/
 
 Vue.use(VueRouter);
 
@@ -11,6 +12,15 @@ const routes = [
     meta: {
       requiresAuth: false,
       title: "Home"
+    }
+  },
+  {
+    path: "/moviedetail/:id",
+    name: "Movie Details",
+    component: () => import("../views/MovieDetails.vue"),
+    meta: {
+      requiresAuth: false,
+      title: "Movie Details"
     }
   }
 ];
@@ -28,5 +38,10 @@ const router = new VueRouter({
   linkActiveClass: "active",
   linkExactActiveClass: "exact-active"
 });
+
+/*router.beforeEach(async (to, from, next) => {
+  console.log(store);
+  next();
+});*/
 
 export default router;
