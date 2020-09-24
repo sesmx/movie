@@ -13,14 +13,24 @@
         <div class="col-lg-6 ab-left pl-lg-4 mt-lg-0 mt-5">
           <h3 class="hny-title">{{ movieobj.movieTitle }}</h3>
           <p class="mt-3">{{ movieobj.plot }}</p>
+          <p class="mt-4">
+            <span
+              style="font-style: italic; font-weight: 500; color: #000000; font-size: 16px;"
+              >Available on:&nbsp;</span
+            >
+            <span
+              style="font-weight: 500; font-style: italic; color: #000000; font-size: 16px;"
+              >{{ soundEffects }}</span
+            >
+          </p>
           <div class="ready-more mt-4">
-            <a href="#" class="btn read-button"
-              >Book Ticket
-              <span
-                class="fa fa-angle-double-right ml-2"
+            <router-link to="/" :class="'btn read-button'"
+              ><span
+                class="fa fa-angle-double-left ml-2"
                 aria-hidden="true"
               ></span
-            ></a>
+              >&nbsp;&nbsp;&nbsp;&nbsp;Back</router-link
+            >
           </div>
         </div>
       </div>
@@ -65,7 +75,16 @@
 <script>
 export default {
   name: "movie-detail",
-  props: ["movieobj"]
+  props: ["movieobj"],
+  computed: {
+    soundEffects() {
+      let effects = "";
+      for (let i = 0; i < this.movieobj.soundEffects.length; i++) {
+        effects += this.movieobj.soundEffects[i].soundEffect + ", ";
+      }
+      return effects.trim().replace(/,\s*$/, "");
+    }
+  }
 };
 </script>
 

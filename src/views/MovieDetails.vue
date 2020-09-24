@@ -1,9 +1,13 @@
 <template>
-  <movie-detail :movieobj="selectedMovie"></movie-detail>
+  <div>
+    <movie-detail :movieobj="selectedMovie"></movie-detail>
+    <movie-stills :moviestills="selectedMovie"></movie-stills>
+  </div>
 </template>
 
 <script>
 import MovieDetail from "@/components/moviedetails/movie-detail";
+import MovieStills from "@/components/moviedetails/movie-stills";
 export default {
   name: "MovieDetails",
   data() {
@@ -12,6 +16,7 @@ export default {
     };
   },
   components: {
+    MovieStills,
     MovieDetail
   },
   created() {
