@@ -1,7 +1,39 @@
 <template>
   <section class="w3l-albums py-5" id="projects">
     <div class="container py-lg-4">
-      <div class="row">
+      <fieldset class="border p-2">
+        <legend class="w-auto">Filter by</legend>
+        <div class="row" style="padding: 0 0 25px 0;">
+          <div class="col-lg-3 mt-lg-0 mt-0">
+            <label style="font-weight: bold;">Language</label>
+            <select
+              class="form-control"
+              @change.prevent="filterByLanguage($event)"
+            >
+              <option value="0">ALL</option>
+              <option
+                v-for="lang in languages"
+                :key="lang.id"
+                :value="lang.id"
+                >{{ lang.movieLanguage }}</option
+              >
+            </select>
+          </div>
+          <div class="col-lg-4 mt-lg-0 mt-0">
+            <label style="font-weight: bold;">Location</label>
+            <select
+              class="form-control"
+              @change.prevent="filterByLocation($event)"
+            >
+              <option value="0">ALL</option>
+              <option v-for="loc in locations" :key="loc.id" :value="loc.id">{{
+                loc.locationName
+              }}</option>
+            </select>
+          </div>
+        </div>
+      </fieldset>
+      <div class="row" style="padding: 30px 0 0 0;">
         <div class="col-lg-12 mx-auto">
           <div id="parentHorizontalTab">
             <ul class="resp-tabs-list hor_1">
@@ -81,9 +113,7 @@
                         >{{ movie.movieTitle }}</router-link
                       >
                       <h4>
-                        <span class="post"
-                          ><span class="fa fa-clock-o"> </span> 2 Hr 4min
-                        </span>
+                        <span class="post">{{ movie.locationName }} </span>
                         <span class="post fa fa-heart text-right"></span>
                       </h4>
                     </div>
@@ -195,11 +225,25 @@ export default {
             }
           ]
         }
+      ],
+      languages: [
+        {
+          id: 0,
+          movieLanguage: ""
+        }
+      ],
+      locations: [
+        {
+          id: 0,
+          locationName: ""
+        }
       ]
     };
   },
   created() {
     const _vm = this;
+    _vm.getLanguages();
+    _vm.getLocations();
     _vm.getAllMovies();
   },
   mounted() {
@@ -244,9 +288,55 @@ export default {
             _upcomingMovies.push(resp.data[i]);
           }
         }
-        _vm.nowShowingMovies = _nowShowingMovies;
-        _vm.upcomingMovies = _upcomingMovies;
+        _vm.$store.state.nowshowing = _vm.nowShowingMovies = _nowShowingMovies;
+        _vm.$store.state.upcoming = _vm.upcomingMovies = _upcomingMovies;
       });
+    },
+    getLanguages() {
+      const _vm = this;
+      let url = _vm.$store.state.apiRoot + "/api/Movie/Languages";
+      _vm.$axios.get(url).then(function(resp) {
+        _vm.languages = resp.data;
+      });
+    },
+    getLocations() {
+      const _vm = this;
+      let url = _vm.$store.state.apiRoot + "/api/Movie/Locations";
+      _vm.$axios.get(url).then(function(resp) {
+        _vm.locations = resp.data;
+      });
+    },
+    filterByLanguage(event) {
+      const _vm = this;
+      if (event.target.value * 1 !== 0) {
+        _vm.nowShowingMovies = _vm.$func.searchByLanguageId(
+          event.target.value,
+          _vm.$store.state.nowshowing
+        );
+        _vm.upcomingMovies = _vm.$func.searchByLanguageId(
+          event.target.value,
+          _vm.$store.state.upcoming
+        );
+      } else {
+        _vm.nowShowingMovies = _vm.$store.state.nowshowing;
+        _vm.upcomingMovies = _vm.$store.state.upcoming;
+      }
+    },
+    filterByLocation(event) {
+      const _vm = this;
+      if (event.target.value * 1 !== 0) {
+        _vm.nowShowingMovies = _vm.$func.searchByLocationId(
+          event.target.value,
+          _vm.$store.state.nowshowing
+        );
+        _vm.upcomingMovies = _vm.$func.searchByLocationId(
+          event.target.value,
+          _vm.$store.state.upcoming
+        );
+      } else {
+        _vm.nowShowingMovies = _vm.$store.state.nowshowing;
+        _vm.upcomingMovies = _vm.$store.state.upcoming;
+      }
     }
   }
 };

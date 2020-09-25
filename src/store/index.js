@@ -6,7 +6,9 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     apiRoot: process.env.VUE_APP_API,
-    movies: []
+    movies: [],
+    nowshowing: [],
+    upcoming: []
   },
   mutations: {
     /*addMovie(state, movie) {

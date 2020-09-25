@@ -33,19 +33,12 @@ export default {
       this.selectedMovie = this.$store.state.movies.find(
         x => x.id === this.$route.params.id
       );
-      this.selectedMovie = this.search(
+      this.selectedMovie = this.$func.searchByMovieId(
         this.$route.params.id,
         this.$store.state.movies
       );
       if (this.selectedMovie === undefined || this.selectedMovie === null) {
         this.$router.push({ path: "/" });
-      }
-    },
-    search(nameKey, array) {
-      for (let i = 0; i < array.length; i++) {
-        if (array[i].id * 1 === nameKey * 1) {
-          return array[i];
-        }
       }
     }
   }
