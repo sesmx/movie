@@ -74,10 +74,10 @@ Port: 3306
 ```
 
 ### .NET Core API Instance
-[https://116.193.133.143/api/Movie/GetAll](https://116.193.133.143/api/Movie/GetAll)
-[https://116.193.133.143/api/Movie/GetOne?id=8](https://116.193.133.143/api/Movie/GetOne?id=8)
-[https://116.193.133.143/api/Movie/Languages](https://116.193.133.143/api/Movie/Languages)
-[https://116.193.133.143/api/Movie/Locations](https://116.193.133.143/api/Movie/Locations)
+[https://116.193.133.143/api/Movie/GetAll](https://116.193.133.143/api/Movie/GetAll)  
+[https://116.193.133.143/api/Movie/GetOne?id=8](https://116.193.133.143/api/Movie/GetOne?id=8)  
+[https://116.193.133.143/api/Movie/Languages](https://116.193.133.143/api/Movie/Languages)  
+[https://116.193.133.143/api/Movie/Locations](https://116.193.133.143/api/Movie/Locations)  
 
 ### Vue UI Instance
 [http://116.193.133.143:5120/](http://116.193.133.143:5120/)
