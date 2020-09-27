@@ -23,5 +23,19 @@ export const func = {
       }
     }
     return finalArr;
+  },
+  searchByMovieTitle: (nameKey, array) => {
+    let finalArr = [];
+    for (let i = 0; i < array.length; i++) {
+      if (
+        array[i].movieTitle
+          .toLowerCase()
+          .trim()
+          .includes(nameKey)
+      ) {
+        finalArr.push(array[i]);
+      }
+    }
+    return finalArr;
   }
 };

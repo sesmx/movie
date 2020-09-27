@@ -30,16 +30,63 @@ export default {
   },
   methods: {
     initMovie() {
-      this.selectedMovie = this.$store.state.movies.find(
-        x => x.id === this.$route.params.id
-      );
-      this.selectedMovie = this.$func.searchByMovieId(
-        this.$route.params.id,
-        this.$store.state.movies
-      );
-      if (this.selectedMovie === undefined || this.selectedMovie === null) {
-        this.$router.push({ path: "/" });
+      const _vm = this;
+      if (_vm.$store.state.movies.length <= 0) {
+        let url =
+          _vm.$store.state.apiRoot +
+          "/api/Movie/GetOne?id=" +
+          _vm.$route.params.id;
+        _vm.$axios.get(url).then(function(resp) {
+          _vm.selectedMovie = resp.data;
+        });
+      } else {
+        _vm.selectedMovie = _vm.$func.searchByMovieId(
+          _vm.$route.params.id,
+          _vm.$store.state.movies
+        );
       }
+      _vm.carouselPostCall();
+      if (
+        _vm.selectedMovie === undefined ||
+        _vm.selectedMovie === null ||
+        _vm.selectedMovie.id <= 0
+      ) {
+        _vm.$router.push({ path: "/" });
+      }
+    },
+    carouselPostCall() {
+      this.$nextTick(function() {
+        // eslint-disable-next-line no-undef
+        $(".owl-two").owlCarousel({
+          loop: true,
+          margin: 40,
+          nav: false,
+          responsiveClass: true,
+          autoplay: true,
+          autoplayTimeout: 5000,
+          autoplaySpeed: 1000,
+          autoplayHoverPause: false,
+          responsive: {
+            0: {
+              items: 1,
+              nav: false
+            },
+            480: {
+              items: 2,
+              nav: true
+            },
+            667: {
+              items: 2,
+              margin: 20,
+              nav: true
+            },
+            1000: {
+              items: 3,
+              nav: true
+            }
+          }
+        });
+      });
     }
   }
 };

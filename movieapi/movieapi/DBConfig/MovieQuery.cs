@@ -126,6 +126,20 @@ namespace movieapi
             return await ReadAllMoviesAsync(await cmd.ExecuteReaderAsync());
         }
 
+        public async Task<MovieMaster> FindMovieByIdAsync(int id)
+        {
+            using var cmd = Db.Connection.CreateCommand();
+            cmd.CommandText = @"SELECT `m`.`Id`, `m`.`MovieTitle`, `m`.`Plot`, `m`.`PosterUrl`, `m`.`ImdbId`, `m`.`ImdbRating`, `m`.`ScreeningStatusId`, `sm`.`ScreeningStatus`, `m`.`LocationId`, `lom`.`LocationName`, `m`.`LanguageId`, `lm`.`MovieLanguage` FROM `movie`.`MovieMaster` `m` INNER JOIN `movie`.`LanguageMaster` `lm` ON `m`.`LanguageId` = `lm`.`Id` INNER JOIN `movie`.`LocationMaster` `lom` ON `m`.`LocationId` = `lom`.`Id` INNER JOIN `movie`.`ScreeningStatusMaster` `sm` ON `m`.`ScreeningStatusId` = `sm`.`Id` WHERE `m`.`Id` = @id;";
+            cmd.Parameters.Add(new MySqlParameter
+             {
+                 ParameterName = "@id",
+                 DbType = DbType.Int32,
+                 Value = id,
+             });
+            var result = await ReadAllMoviesAsync(await cmd.ExecuteReaderAsync());
+            return result.Count > 0 ? result[0] : null;
+        }
+
         public async Task<List<MovieSoundEffectDetails>> GetAllSoundEffectDetailsAsync()
         {
             using var cmd = Db.Connection.CreateCommand();

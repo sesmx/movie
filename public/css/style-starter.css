@@ -16690,7 +16690,7 @@ nav#breadcrumbs a:hover {
 }
 @media (max-width:600px) {
   .w3l-team h3.name-pos a {
-      font-size: 16px;
+    font-size: 16px;
   }
 }
 @media (max-width: 415px) {
@@ -17761,8 +17761,8 @@ ul.page-numbers li a:hover {
     margin-bottom: 20px;
   }
   .w3l-blog-single  a.posts-view-left,.w3l-blog-single  a.posts-view-right {
-      grid-template-columns: 100%;
-      grid-gap: 0%;
+    grid-template-columns: 100%;
+    grid-gap: 0%;
   }
 }
 

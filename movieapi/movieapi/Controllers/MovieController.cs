@@ -36,6 +36,24 @@ namespace movieapi.Controllers
             return new OkObjectResult(movies);
         }
 
+        [HttpGet("GetOne")]
+        [ActionName("GetOne")]
+        public async Task<IActionResult> GetOne(int id)
+        {
+            await Db.Connection.OpenAsync();
+            var query = new MovieQuery(Db);
+            var movie = await query.FindMovieByIdAsync(id);
+            var allSoundEffects = await query.GetAllSoundEffectDetailsAsync();
+            var allMovieStills = await query.GetAllMovieStillsAsync();
+            if (movie != null && movie.Id > default(int))
+            {
+                movie.soundEffects = allSoundEffects.Where(se => se.MovieId == movie.Id).ToList();
+                movie.movieStills = allMovieStills.Where(st => st.MovieId == movie.Id).ToList();
+            }
+            await Db.Connection.CloseAsync();
+            return new OkObjectResult(movie);
+        }
+
         [HttpGet("Languages")]
         [ActionName("Languages")]
         public async Task<IActionResult> Languages()

@@ -7,8 +7,8 @@
         </div>
         <div class="owl-two owl-carousel owl-theme">
           <div
-            v-for="still in stills"
-            :key="still.stillUrl"
+            v-for="still in moviestills.movieStills"
+            :key="still.id"
             class="item vhny-grid"
           >
             <div class="two-gridshny-grids">
@@ -16,7 +16,11 @@
                 <div class="box16 mb-4">
                   <a href="#">
                     <figure>
-                      <img class="img-fluid" :src="still.stillUrl" alt="" />
+                      <img
+                        class="img-fluid"
+                        :src="still.movieStillUrl"
+                        alt=""
+                      />
                     </figure>
                     <div class="box-content">
                       <h4>&nbsp;</h4>
@@ -39,14 +43,8 @@
 export default {
   name: "movie-stills",
   props: ["moviestills"],
-  data() {
-    return {
-      stills: []
-    };
-  },
   created() {
-    this.getStills();
-    this.$nextTick(function() {
+    /*this.$nextTick(function() {
       // eslint-disable-next-line no-undef
       $(".owl-two").owlCarousel({
         loop: true,
@@ -77,18 +75,7 @@ export default {
           }
         }
       });
-    });
-  },
-  methods: {
-    getStills() {
-      this.stills = [];
-      console.log(this.moviestills.movieStills);
-      for (let i = 0; i < this.moviestills.movieStills.length; i++) {
-        this.stills.push({
-          stillUrl: this.moviestills.movieStills[i].movieStillUrl
-        });
-      }
-    }
+    });*/
   }
 };
 </script>

@@ -38,28 +38,41 @@
             ></a>
             <div id="search" class="pop-overlay">
               <div class="popup">
-                <form action="#" method="post" class="search-box">
+                <form
+                  action="javascript:void(0);"
+                  method="post"
+                  class="search-box"
+                >
                   <input
                     type="search"
-                    placeholder="Search your Keyword"
+                    placeholder="Search your movie"
                     name="search"
                     required="required"
                     autofocus=""
+                    v-model="movieTitle"
+                    @input.prevent="searchMovie"
+                    @keyup.enter.prevent="searchMovie"
                   />
-                  <button class="btn">
+                  <button class="btn" @click.prevent="searchMovie">
                     <span class="fa fa-search" aria-hidden="true"></span>
                   </button>
                 </form>
                 <div class="browse-items">
-                  <h3 class="hny-title two mt-md-5 mt-4">Browse all:</h3>
+                  <h3 class="hny-title two mt-md-5 mt-4">Browse movies:</h3>
                   <ul class="search-items">
-                    <li><a href="javascript:void(0);">Action</a></li>
-                    <li><a href="javascript:void(0);">Drama</a></li>
-                    <li><a href="javascript:void(0);">Family</a></li>
-                    <li><a href="javascript:void(0);">Thriller</a></li>
-                    <li><a href="javascript:void(0);">Romantic</a></li>
-                    <li><a href="javascript:void(0);">Tv-Series</a></li>
-                    <li><a href="javascript:void(0);">Horror</a></li>
+                    <li v-for="movie in movies" :key="movie.id">
+                      <!--<router-link
+                        :to="'/moviedetail/' + movie.id + '#close'"
+                        exact
+                        >{{ movie.movieTitle }}</router-link
+                      >-->
+                      <a
+                        :data-id="movie.id"
+                        @click.prevent="navigateToMovieDetails($event)"
+                        href="javascript:void(0);"
+                        >{{ movie.movieTitle }}</a
+                      >
+                    </li>
                   </ul>
                 </div>
               </div>
@@ -77,10 +90,14 @@ export default {
   name: "header-nav",
   data() {
     return {
-      menuItems: []
+      menuItems: [],
+      movies: [],
+      tempMovies: [],
+      movieTitle: ""
     };
   },
   created() {
+    this.getAllMovies();
     this.$router.options.routes.forEach(route => {
       if (route.path !== "*" && route.path !== "/moviedetail/:id") {
         this.menuItems.push({
@@ -89,6 +106,42 @@ export default {
         });
       }
     });
+  },
+  methods: {
+    searchMovie() {
+      if (this.movieTitle.length > 0) {
+        this.movies = this.$func.searchByMovieTitle(
+          this.movieTitle,
+          this.tempMovies
+        );
+      } else {
+        this.movies = this.tempMovies;
+      }
+    },
+    getAllMovies() {
+      const _vm = this;
+      let url = _vm.$store.state.apiRoot + "/api/Movie/GetAll";
+      _vm.$axios.get(url).then(function(resp) {
+        _vm.movies = _vm.tempMovies = resp.data;
+        _vm.sortDataAsc();
+      });
+    },
+    sortDataAsc() {
+      const _vm = this;
+      _vm.movies.sort((a, b) =>
+        a.movieTitle > b.movieTitle ? 1 : b.movieTitle > a.movieTitle ? -1 : 0
+      );
+    },
+    navigateToMovieDetails(event) {
+      window.location.href =
+        window.location.protocol +
+        "//" +
+        window.location.host +
+        "/moviedetail/" +
+        // eslint-disable-next-line no-undef
+        $(event.target).attr("data-id") +
+        "#close";
+    }
   }
 };
 </script>

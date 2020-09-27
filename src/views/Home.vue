@@ -312,8 +312,8 @@ export default {
             _upcomingMovies.push(resp.data[i]);
           }
         }
-        _vm.$store.state.nowshowing = _vm.nowShowingMovies = _vm.tempNowShowing = _nowShowingMovies;
-        _vm.$store.state.upcoming = _vm.upcomingMovies = _vm.tempUpcoming = _upcomingMovies;
+        _vm.$store.state.nowshowing = _vm.nowShowingMovies = _nowShowingMovies;
+        _vm.$store.state.upcoming = _vm.upcomingMovies = _upcomingMovies;
         _vm.sortData();
       });
     },
