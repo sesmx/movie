@@ -1,4 +1,4 @@
-#1. Database Setup (MySQL 8)
+# 1. Database Setup (MySQL 8)
 
 ## Create new DB user and give permission
 ```
@@ -13,7 +13,7 @@ FLUSH PRIVILEGES;
 
 
 
-#2. API (.NET Core 3.1)
+# 2. API (.NET Core 3.1)
 ##### Install Visual Studio 2019 with .NET Core 3.1 support. Open the project sln file with Visual studio, stored inside 'movieapi' directory.
 ##### Run or compile the project.
 
@@ -74,14 +74,10 @@ Port: 3306
 ```
 
 ### .NET Core API Instance
-```
-https://116.193.133.143/api/Movie/GetAll
-https://116.193.133.143/api/Movie/GetOne?id=8
-https://116.193.133.143/api/Movie/Languages
-https://116.193.133.143/api/Movie/Locations
-```
+[https://116.193.133.143/api/Movie/GetAll](https://116.193.133.143/api/Movie/GetAll)
+[https://116.193.133.143/api/Movie/GetOne?id=8](https://116.193.133.143/api/Movie/GetOne?id=8)
+[https://116.193.133.143/api/Movie/Languages](https://116.193.133.143/api/Movie/Languages)
+[https://116.193.133.143/api/Movie/Locations](https://116.193.133.143/api/Movie/Locations)
 
 ### Vue UI Instance
-```
-http://116.193.133.143:5120/
-```
+[http://116.193.133.143:5120/](http://116.193.133.143:5120/)
